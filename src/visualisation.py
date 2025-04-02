@@ -13,7 +13,7 @@ def schedule_table(schedule, no_of_channels):
         formatted_row = [str(cell) if cell else '-' for cell in current_column]
         schedule_table.add_column(headers[column], formatted_row)
 
-    schedule_txt = open('schedule.txt', 'w')
+    schedule_txt = open('outputs/schedule.txt', 'w')
     schedule_txt.write(str(schedule_table))
     schedule_txt.close()
 
@@ -32,5 +32,5 @@ def plot_graph(graph):
     
     nx.draw(graph_visual, with_labels=True, node_color='lightblue', edge_color='gray', node_size=750, font_size=12)
 
-    plt.savefig("graph.jpg")
+    plt.savefig("outputs/graph.jpg")
     # plt.show()

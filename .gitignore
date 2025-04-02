@@ -3,3 +3,5 @@ __pycache__/
 schedule.txt
 graph.jpg
 .DS_Store
+.json
+outputs/
