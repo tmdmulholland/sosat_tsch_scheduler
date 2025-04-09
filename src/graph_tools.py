@@ -1,8 +1,8 @@
 def find_edges(graph):
     edges = []
     seen_edges = set()
-    for u, neighbors in graph.items():
-        for v in neighbors:
+    for u, neighbours in graph.items():
+        for v in neighbours:
             if (u, v) not in seen_edges and (v, u) not in seen_edges:
                 edges.append((u, v))
                 seen_edges.add((u, v))
@@ -41,18 +41,17 @@ def strong_edge_colouring(graph):
 
 
 def minimum_edge_colouring(graph):
-    edges = find_edges(graph)
-
     max_degree = 0
-    for neighbors in graph.values():
-        if len(neighbors) > max_degree:
-            max_degree = len(neighbors)
+    for neighbours in graph.values():
+        if len(neighbours) > max_degree:
+            max_degree = len(neighbours)
 
     colour_groups = [[] for colour in range(max_degree + 1)]
     node_colours = {}
     
     node_colours = graph.copy()
     node_colours.update((key, set()) for key in node_colours)
+    edges = find_edges(graph)
 
     for u, v in edges:
         for colour in range(0, max_degree + 1):
@@ -75,11 +74,11 @@ def breadth_first_search(graph, start_node):
     while queue:
         node, path = queue.pop(0)
 
-        for neighbor in graph.get(node, []):
-            if neighbor not in shortest_paths:
-                new_path = path + [neighbor]
-                shortest_paths[neighbor] = new_path
-                queue.append((neighbor, new_path))
+        for neighbour in graph.get(node, []):
+            if neighbour not in shortest_paths:
+                new_path = path + [neighbour]
+                shortest_paths[neighbour] = new_path
+                queue.append((neighbour, new_path))
 
     next_hops = {str(k): v[-2] if len(v) > 1 else v[0] for k, v in shortest_paths.items()}
 
