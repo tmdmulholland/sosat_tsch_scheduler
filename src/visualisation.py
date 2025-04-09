@@ -30,7 +30,9 @@ def plot_graph(graph):
 
     plt.figure(figsize=(12, 8))
     
-    nx.draw(graph_visual, with_labels=True, node_color='lightblue', edge_color='gray', node_size=750, font_size=12)
+    pos = nx.spring_layout(graph_visual)
+    colors = ['orangered' if node_name == 1 else 'lightblue' for node_name in list(graph_visual.nodes)]
+    nx.draw(graph_visual, pos=pos, with_labels=True, node_color=colors, edge_color='gray', node_size=750, font_size=12)
 
-    plt.savefig("outputs/graph.jpg")
+    plt.savefig("outputs/graph.png")
     # plt.show()
