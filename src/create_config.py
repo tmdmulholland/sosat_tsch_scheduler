@@ -3,8 +3,20 @@ import graph_tools as gt
 
 def create_config_json(network, schedule, no_of_nodes, slotframe_length, duration, seed, num_runs, app_packet_period_sec):
 
+# run with GUI
+    # header = """{
+    #     "WEB_ENABLED": true,
+    #     "NODE_TYPES": [
+    #         {
+    #             "NAME": "node",
+    #             "START_ID": 1,
+    #             "APP_PACKETS": {"TO_ID": 1}
+    #         }
+    #     ]
+    # }"""
+
+# run in terminal
     header = """{
-        "WEB_ENABLED": true,
         "NODE_TYPES": [
             {
                 "NAME": "node",
@@ -26,12 +38,11 @@ def create_config_json(network, schedule, no_of_nodes, slotframe_length, duratio
         "APP_PACKETS": {"APP_PACKET_PERIOD_SEC": app_packet_period_sec, "TO_ID": 1}
     })
 
+    custom_json = base_json.copy()
     next_hops = gt.breadth_first_search(network, 1)
     schedule_dict = create_schedule_entry(schedule, next_hops)
-    base_json.update({"SCHEDULE": schedule_dict})
-
-
-    custom_json = base_json.copy()
+    custom_json.update({"SCHEDULE": schedule_dict})
+    
     custom_json["SCHEDULING_ALGORITHM"] =  "customSchedule"
     custom_json["ROUTING_ALGORITHM"] = "NullRouting"
     custom_json["TSCH_SCHEDULE_CONF_DEFAULT_LENGTH"] = slotframe_length

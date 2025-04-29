@@ -16,9 +16,8 @@ def schedule_table(schedule, no_of_channels):
     schedule_txt = open('outputs/schedule.txt', 'w')
     schedule_txt.write(str(schedule_table))
     schedule_txt.close()
-
     # print(schedule_table)
-
+    
 
 
 def plot_graph(graph):
@@ -28,7 +27,7 @@ def plot_graph(graph):
         for neighbor in neighbors:
             graph_visual.add_edge(node, neighbor)
 
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(10, 6))
     
     pos = nx.spring_layout(graph_visual)
     colors = ['orangered' if node_name == 1 else 'lightblue' for node_name in list(graph_visual.nodes)]

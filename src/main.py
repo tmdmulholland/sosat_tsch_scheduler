@@ -2,64 +2,15 @@ import graph_tools as gt
 import scheduler as sc
 import visualisation as vis
 import create_config as cc
+import graphs as graphs
 
-# network = {
-#     1: [2, 5],
-#     2: [1, 3, 4],
-#     3: [2, 5],
-#     4: [2, 7],
-#     5: [1, 3, 6],
-#     6: [5],
-#     7: [4, 8],
-#     8: [7]
-# }
-
-# network = {
-#     1: [2, 3, 4],
-#     2: [1, 5, 6],
-#     3: [1, 7, 8],
-#     4: [1, 9, 10],
-#     5: [2, 11, 12],
-#     6: [2, 13, 14],
-#     7: [3, 15, 16],
-#     8: [3, 17],
-#     9: [4, 18],
-#     10: [4, 19, 20],
-#     11: [5],
-#     12: [5],
-#     13: [6],
-#     14: [6],
-#     15: [7],
-#     16: [7],
-#     17: [8, 21, 22],
-#     18: [9, 23],
-#     19: [10],
-#     20: [10],
-#     21: [17],
-#     22: [17],
-#     23: [18, 24],
-#     24: [23, 25],
-#     25: [24]
-# }
-
-network = {
-    1: [2, 3, 4],
-    2: [1, 5, 6],
-    3: [1, 7, 8],
-    4: [1, 9],
-    5: [2, 10, 11],
-    6: [2, 12],
-    7: [3, 13],
-    8: [3, 14],
-    9: [4, 15],
-    10: [5],
-    11: [5],
-    12: [6],
-    13: [7],
-    14: [8],
-    15: [9, 16],
-    16: [15]
-}
+# network = graphs.tree_10
+network = graphs.tree_15
+# network = graphs.tree_25
+# network = graphs.line
+# network = graphs.mesh3
+# network = graphs.mesh4
+# network = graphs.mesh9
 
 minimum_coloured_edges = gt.minimum_edge_colouring(network)
 strong_coloured_edges = gt.strong_edge_colouring(network)
@@ -73,14 +24,14 @@ if channels_required > no_of_channels:
     exit()
 
 schedule = sc.tsch_scheduler(no_of_channels, minimum_coloured_edges, strong_coloured_edges)
-# print(schedule)
+no_of_channels = 16
 
 slotframe_length = len(schedule)
 next_hop_to_1 = gt.breadth_first_search(network, 1)
-duration = 500
+duration = 1200
 seed = 50
-num_runs = 10
-app_packet_period_sec = 0.5
+num_runs = 20
+app_packet_period_sec = 0.1
 cc.create_config_json(network, schedule, no_of_nodes, slotframe_length, duration, seed, num_runs, app_packet_period_sec)
 
 vis.schedule_table(schedule, no_of_channels)
