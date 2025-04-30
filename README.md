@@ -1,1 +1,1 @@
-# individual_research_project
+# SOSAT: A Spectrum Optimising Scheduling Algorithm for TSCH
