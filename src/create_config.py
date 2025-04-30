@@ -1,9 +1,13 @@
 import json
 import graph_tools as gt
+import os
+
 
 def create_config_json(network, schedule, no_of_nodes, slotframe_length, duration, seed, num_runs, app_packet_period_sec):
 
-# run with GUI
+    os.makedirs('outputs', exist_ok=True)
+
+    # run with GUI
     # header = """{
     #     "WEB_ENABLED": true,
     #     "NODE_TYPES": [
@@ -15,7 +19,7 @@ def create_config_json(network, schedule, no_of_nodes, slotframe_length, duratio
     #     ]
     # }"""
 
-# run in terminal
+    # run in terminal
     header = """{
         "NODE_TYPES": [
             {
@@ -48,6 +52,7 @@ def create_config_json(network, schedule, no_of_nodes, slotframe_length, duratio
     custom_json["TSCH_SCHEDULE_CONF_DEFAULT_LENGTH"] = slotframe_length
     custom_json["NEXT_HOP"] = next_hops
 
+    open('outputs/config_custom.json', 'w')
     with open('outputs/config_custom.json', 'w') as outfile:
         outfile.write(json.dumps(custom_json, indent=4))
 
